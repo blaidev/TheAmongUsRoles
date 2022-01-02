@@ -25,6 +25,7 @@ namespace TheOtherRoles
         }
 
         public static RoleInfo medic = new RoleInfo("Medic", Medic.color, "Protect someone with your shield", "Protect other players", RoleId.Medic);
+        public static RoleInfo maker = new RoleInfo("Maker", Medic.color, "Create Cameras", "Create cameras", RoleId.Medic);
         public static RoleInfo impostor = new RoleInfo("Impostor", Palette.ImpostorRed, Helpers.cs(Palette.ImpostorRed, "Sabotage and kill everyone"), "Sabotage and kill everyone", RoleId.Impostor);
         public static RoleInfo crewmate = new RoleInfo("Crewmate", Color.white, "Find the Impostors", "Find the Impostors", RoleId.Crewmate);
 
@@ -33,7 +34,11 @@ namespace TheOtherRoles
             crewmate,
             shifter,
             engineer,
-            medic
+            medic,
+            shrinker,
+            mayor,
+            builder,
+            maker
         };
 
         public static List<RoleInfo> getRoleInfoForPlayer(PlayerControl p) {
@@ -42,6 +47,7 @@ namespace TheOtherRoles
 
             // Special roles
             if (p == Medic.medic) infos.Add(medic);
+         // if (p == Maker.maker) infos.Add(maker);
 
             // Default roles
             if (infos.Count == 0 && p.Data.Role.IsImpostor) infos.Add(impostor); // Just Impostor
@@ -53,7 +59,6 @@ namespace TheOtherRoles
         public static String GetRolesString(PlayerControl p, bool useColors) {
             string roleName;
             roleName = String.Join(" ", getRoleInfoForPlayer(p).Select(x => useColors ? Helpers.cs(x.color, x.name) : x.name).ToArray());
-            if (Lawyer.target != null && p.PlayerId == Lawyer.target.PlayerId && PlayerControl.LocalPlayer != Lawyer.target) roleName += (useColors ? Helpers.cs(Pursuer.color, " §") : " §");
             return roleName;
         }
     }
