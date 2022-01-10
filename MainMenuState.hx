@@ -35,6 +35,7 @@ class MainMenuState extends MusicBeatState
 	var optionShit:Array<String> = [
 		'story_mode',
 		'freeplay',
+		#if MODS_ALLOWED 'mods', #end
 		#if ACHIEVEMENTS_ALLOWED 'awards', #end
 		'credits',
 		'options'
@@ -191,7 +192,7 @@ class MainMenuState extends MusicBeatState
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 
-                if (optionShit[curSelected] == 'story_mode');
+                if (optionShit[curSelected] == 'story_mode')
                 {
                     changeItem(-1);
                     changeItem(1);
@@ -201,9 +202,8 @@ class MainMenuState extends MusicBeatState
                     char1.visible = true;
                     char2.visible = false;
                 }
-                 else
+                else
                  {
-                    changeItem(-1);
                     char1.visible = false;
                     char2.visible = false;
                  }
@@ -267,8 +267,14 @@ class MainMenuState extends MusicBeatState
 										MusicBeatState.switchState(new StoryMenuState());
 									case 'freeplay':
 										MusicBeatState.switchState(new FreeplayState());
+									#if MODS_ALLOWED
+									case 'mods':
+										MusicBeatState.switchState(new ModsMenuState());
+									#end
+                                                                        #if ACHIEVEMENTS_ALLOWED
 									case 'awards':
 										MusicBeatState.switchState(new AchievementsMenuState());
+                                                                        #end
 									case 'credits':
 										MusicBeatState.switchState(new CreditsState());
 									case 'options':
