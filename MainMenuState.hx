@@ -44,11 +44,8 @@ class MainMenuState extends MusicBeatState
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
-        var char1 Character = null;
-        var char2 Character = null;
-//        private var char3 Character = null;
-//        private var char4 Character = null;
-//        private var char5 Character = null;
+        private var char1:Character = null;
+        private var char2:Character = null;
 	var debugKeys:Array<FlxKey>;
 
 	override function create()
@@ -130,13 +127,13 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.camera.follow(camFollowPos, null, 1);
 
-                char1 = new Character(800, -131, 'bf', true);
-                char1.setGraphicSize(Std.inst(char1.width * 0.8));
+                char1 = new Character(800, -130, 'bf', true);
+	      //char1.setGraphicSize(Std.int(menuItem.width * 0.58));
                 char1.visible = false;
                 add(char1);
 
-                char2 = new Character(800, -131, 'dad', true);
-                char2.setGraphicSize(Std.inst(char2.width * 0.8));
+                char2 = new Character(800, -130, 'dad', true);
+	      //char2.setGraphicSize(Std.int(menuItem.width * 0.58));
                 char2.visible = false;
                 add(char2);
 
@@ -202,12 +199,17 @@ class MainMenuState extends MusicBeatState
                     char1.visible = true;
                     char2.visible = false;
                 }
-                else
-                 {
+                elseif (optionShit[curSelected] == 'awards')
+                {
+                    changeItem(-1);
+                    changeItem(1);
+
+                    char2.dance();
+                    char2.updateHitbox();
                     char1.visible = false;
-                    char2.visible = false;
-                 }
-                //elseif (optionShit[curSelected] == 'achivements');
+                    char2.visible = true;
+                }
+                //elseif (optionShit[curSelected] == 'achivements')
 
 		if (!selectedSomethin)
 		{
